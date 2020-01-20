@@ -7,7 +7,8 @@ pipeline {
      // YOUR_DOCKERHUB_USERNAME (it doesn't matter if you don't have one)
 
      SERVICE_NAME = "fleetman-api-gateway-update"
-     REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
+     REPOSITORY_TAG = "${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
+     DOCKER = credentials('DockerHub')
    }
 
    stages {
@@ -31,7 +32,7 @@ pipeline {
 
       stage('Logging to docker hub') {
           steps {
-              sh 'docker login -u 2kbkaba -p ${DockerHub}'
+              sh 'docker login -u ${YOUR_DOCKERHUB_USERNAME} -p ${DOCKER}'
           }
       }
 
