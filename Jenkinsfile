@@ -44,9 +44,8 @@ pipeline {
 
       stage('Deploy to Cluster') {
           steps {
-              sh 'envsubst < ${WORKSPACE}/deploy.yaml'
               withKubeConfig([credentialsId: 'k8s-new', serverUrl: 'https://192.168.1.45:6443']) {
-                  sh 'kubectl apply -f -'
+                  sh 'envsubst < ${WORKSPACE}/deploy.yaml | kubectl apply -f -'
               }
           }
       }
